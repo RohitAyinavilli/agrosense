@@ -1,0 +1,6 @@
+pmOnFail: ignore
+
+minimumReleaseAgeExclude:
+  - '@next/*'
+  - next
+  - lucide-react@1.75.0
