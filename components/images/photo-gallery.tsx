@@ -69,7 +69,7 @@ function PhotoCard({
       onClick={onOpen}
       disabled={failed}
       aria-label={`View photograph ${index + 1}`}
-      className="group overflow-hidden rounded-xl border bg-white text-left transition-all duration-200 hover:border-emerald-300 hover:shadow-md disabled:cursor-not-allowed"
+      className="group overflow-hidden rounded-xl border bg-card text-left transition-all duration-200 hover:border-emerald-300 hover:shadow-md disabled:cursor-not-allowed"
     >
       <div className="relative aspect-square overflow-hidden bg-muted">
         {!loaded && !failed && (
@@ -219,7 +219,7 @@ export function GallerySkeleton() {
         {Array.from({ length: 8 }).map((_, index) => (
           <div
             key={index}
-            className="overflow-hidden rounded-xl border bg-white"
+            className="overflow-hidden rounded-xl border bg-card"
           >
             <Skeleton className="aspect-square w-full rounded-none" />
 

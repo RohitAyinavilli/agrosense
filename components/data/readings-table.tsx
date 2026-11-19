@@ -137,7 +137,7 @@ export function ReadingsTable({
   }
 
   return (
-    <Card className="border-[#dfe8e0] bg-white shadow-sm">
+    <Card className="border-border bg-card shadow-sm">
       <CardHeader>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -277,7 +277,7 @@ export function ReadingsTable({
 
             <div className="overflow-x-auto rounded-lg border">
               <table className="w-full min-w-[650px] text-left text-sm">
-                <thead className="border-b bg-[#f7faf7] text-xs text-[#718078]">
+                <thead className="border-b bg-muted text-xs text-muted-foreground">
                   <tr>
                     <th className="px-4 py-3 font-medium">
                       Metric
@@ -294,11 +294,11 @@ export function ReadingsTable({
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-[#edf1ed]">
+                <tbody className="divide-y divide-border">
                   {visibleReadings.map((reading) => (
                     <tr
                       key={reading.id}
-                      className="transition-colors hover:bg-[#f7faf7]"
+                      className="transition-colors hover:bg-muted/70"
                     >
                       <td className="px-4 py-3">
                         <span

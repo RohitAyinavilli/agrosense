@@ -3,7 +3,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Activity, BarChart3, Images, Leaf } from "lucide-react"
+import { Activity, BarChart3, Bell, Images, Leaf } from "lucide-react"
 
 import {
   Sidebar,
@@ -22,6 +22,7 @@ const navigation = [
   { title: "Overview", href: "/", icon: Activity },
   { title: "Sensor data", href: "/data", icon: BarChart3 },
   { title: "Images", href: "/images", icon: Images },
+  { title: "Notifications", href: "/notifications", icon: Bell },
 ]
 
 export function AppSidebar() {

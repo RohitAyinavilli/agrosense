@@ -24,6 +24,10 @@ import {
 } from "@/components/dashboard/metric-config"
 
 import type { DashboardData } from "@/lib/dashboard-types"
+import { SensorCorrelation } from "@/components/dashboard/sensor-correlation"
+import { SensorDistribution } from "@/components/dashboard/sensor-distribution"
+import { SensorAnomalies } from "@/components/dashboard/sensor-anomalies"
+
 
 type LoadStatus = "loading" | "loaded" | "error"
 
@@ -80,6 +84,52 @@ export default function HomePage() {
     return () => controller.abort()
   }, [refreshKey])
 
+
+    // Check alerts whenever the Overview finishes loading.
+    // Repeat every 3 hours while this page remains open.
+    useEffect(() => {
+      if (status !== "loaded") return
+
+      async function checkNotifications() {
+        try {
+          const response = await fetch(
+            "/api/notifications",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                action: "check",
+              }),
+            }
+          )
+
+          if (!response.ok) {
+            console.error(
+              "Notification check failed:",
+              response.status
+            )
+          }
+        } catch (error) {
+          console.error(
+            "Could not check notifications:",
+            error
+          )
+        }
+      }
+
+      checkNotifications()
+
+      const interval = setInterval(
+        checkNotifications,
+        3 * 60 * 60 * 1000
+      )
+
+      return () => clearInterval(interval)
+    }, [status, refreshKey])
+
+
   const loading = status === "loading"
 
   const latestReadingTime = data.readings.reduce(
@@ -100,17 +150,17 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-w-0 bg-[#f5f7f5]">
+    <main className="min-w-0 bg-background">
       <div className="mx-auto max-w-[1440px] space-y-7 px-5 py-8 sm:px-8 lg:px-10">
         {/* Dashboard heading */}
         <section className="flex flex-wrap items-end justify-between gap-4">
           <div>
 
-            <h1 className="text-3xl font-semibold tracking-tight text-[#17251f] sm:text-4xl">
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               Overview
             </h1>
 
-            <p className="mt-2 text-sm text-[#718078]">
+            <p className="mt-2 text-sm text-muted-foreground">
               Environmental and nutrient monitoring for
               hydroponic lettuce cultivation.
             </p>
@@ -120,7 +170,7 @@ export default function HomePage() {
             variant="outline"
             onClick={refresh}
             disabled={loading}
-            className="bg-white"
+            className="bg-background"
           >
             <RefreshCw
               size={16}
@@ -131,10 +181,10 @@ export default function HomePage() {
         </section>
 
         {/* Connection information */}
-        <Card className="border-[#dfe8e0] bg-white shadow-sm">
+        <Card className="border-border bg-card shadow-sm">
           <CardContent className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-emerald-50 p-3 text-emerald-700">
+              <div className="rounded-lg bg-emerald-100/70 p-3 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
                 <Database size={19} />
               </div>
 
@@ -176,10 +226,10 @@ export default function HomePage() {
         />
 
         {/* Recording and fetch timestamps */}
-        <div className="flex flex-wrap gap-x-8 gap-y-2 text-xs text-[#819087]">
+        <div className="flex flex-wrap gap-x-8 gap-y-2 text-xs text-muted-foreground">
           <span>
             Latest sensor record:{" "}
-            <strong className="font-medium text-[#526159]">
+            <strong className="font-medium text-foreground">
               {status === "loaded" && latestReadingTime
                 ? formatDateTime(latestReadingTime)
                 : "—"}
@@ -188,7 +238,7 @@ export default function HomePage() {
 
           <span>
             Last dashboard refresh:{" "}
-            <strong className="font-medium text-[#526159]">
+            <strong className="font-medium text-foreground">
               {lastFetched
                 ? formatDateTime(lastFetched)
                 : "—"}
@@ -198,9 +248,9 @@ export default function HomePage() {
 
         {/* Error state */}
         {status === "error" && (
-          <Card className="border-red-200 bg-red-50">
+          <Card className="border-destructive/30 bg-destructive/5">
             <CardContent className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-red-700">
+              <p className="text-sm text-destructive">
                 The dashboard could not load sensor data.
                 Please check the API connection.
               </p>
@@ -236,13 +286,48 @@ export default function HomePage() {
           </section>
         ) : null}
 
+
+        {/* Additional analytics */}
+        {loading ? (
+          <section className="grid gap-5 lg:grid-cols-2">
+            <Skeleton className="h-[470px] w-full rounded-xl" />
+            <Skeleton className="h-[470px] w-full rounded-xl" />
+          </section>
+        ) : status === "loaded" ? (
+          <section className="grid min-w-0 gap-5 lg:grid-cols-2">
+            <SensorCorrelation
+              readings={data.readings}
+              range={range}
+            />
+
+            <SensorDistribution
+              readings={data.readings}
+              range={range}
+            />
+          </section>
+        ) : null}
+
+
+
+        {/* Sensor anomaly detection */}
+        {loading ? (
+          <Skeleton className="h-[550px] w-full rounded-xl" />
+        ) : status === "loaded" ? (
+          <SensorAnomalies
+            readings={data.readings}
+            range={range}
+          />
+        ) : null}
+
+
+
         {/* Plant images */}
         <RecentImages
           images={data.images}
           loading={loading}
         />
 
-        <footer className="border-t border-[#dfe8e0] pt-5 text-xs text-[#91a097]">
+        <footer className="border-t border-border pt-5 text-xs text-muted-foreground">
           AgroSense · Hydroponic research monitoring ·
           Read-only dashboard
         </footer>

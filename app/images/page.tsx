@@ -139,12 +139,12 @@ export default function ImagesPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f7f5] px-4 py-10 text-[#14201c] sm:px-6">
+    <main className="min-h-screen bg-background px-4 py-10 text-foreground sm:px-6">
       <div className="mx-auto max-w-6xl">
-        <Card className="border-[#dfe8e0] bg-white shadow-sm">
+        <Card className="border-border bg-card shadow-sm">
           <CardHeader className="space-y-3">
             <div className="flex items-center gap-4">
-              <div className="flex size-12 items-center justify-center rounded-xl bg-[#edf7ef] text-[#3d8b61]">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-emerald-100/70 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
                 <Images size={24} />
               </div>
 

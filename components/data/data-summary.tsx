@@ -26,7 +26,7 @@ export function DataSummary({
       {stats.map((stat) => (
         <Card
           key={stat.label}
-          className="border-[#dfe8e0] bg-white shadow-sm"
+          className="border-border bg-card shadow-sm"
         >
           <CardContent className="space-y-2">
             {loading ? (

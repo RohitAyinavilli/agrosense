@@ -32,7 +32,7 @@ export function RecentImages({ images, loading }: Props) {
     .slice(0, 4)
 
   return (
-    <Card className="border-[#dfe8e0] bg-white shadow-sm">
+    <Card className="border-border bg-card shadow-sm">
       <CardHeader className="flex flex-row items-start justify-between gap-3">
         <div>
           <CardTitle>Recent plant images</CardTitle>
@@ -66,7 +66,7 @@ export function RecentImages({ images, loading }: Props) {
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {recent.map((image) => (
               <figure key={image.id} className="min-w-0">
-                <div className="aspect-square overflow-hidden rounded-xl bg-[#eef3ef]">
+                <div className="aspect-square overflow-hidden rounded-xl bg-muted">
                   <img
                     src={image.imageUrl}
                     alt={`Hydroponic lettuce photograph from ${image.camera}`}

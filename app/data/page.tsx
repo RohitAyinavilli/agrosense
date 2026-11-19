@@ -76,11 +76,11 @@ export default function DataPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f7f5] px-4 py-10 text-[#14201c] sm:px-6">
+    <main className="min-h-screen bg-background px-4 py-10 text-foreground sm:px-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <header className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="mb-3 flex items-center gap-2 text-sm font-medium text-[#3d8b61]">
+            <div className="mb-3 flex items-center gap-2 text-sm font-medium text-emerald-700 dark:text-emerald-300">
               <Database size={17} />
               Historical records
             </div>
@@ -89,7 +89,7 @@ export default function DataPage() {
               Sensor data
             </h1>
 
-            <p className="mt-2 text-sm text-[#718078]">
+            <p className="mt-2 text-sm text-muted-foreground">
               Explore collected readings from the hydroponic
               monitoring system.
             </p>

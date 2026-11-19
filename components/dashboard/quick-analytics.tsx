@@ -66,7 +66,7 @@ export function QuickAnalytics({
   ]
 
   return (
-    <Card className="border-[#dfe8e0] bg-white shadow-sm">
+    <Card className="border-border bg-card shadow-sm">
       <CardHeader>
         <CardTitle>Quick analytics</CardTitle>
         <CardDescription>
@@ -79,7 +79,7 @@ export function QuickAnalytics({
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl bg-[#f5f8f5] p-4"
+              className="rounded-xl bg-muted p-4"
             >
               <p className="text-xs text-muted-foreground">
                 {stat.label}

@@ -4,3 +4,4 @@ minimumReleaseAgeExclude:
   - '@next/*'
   - next
   - lucide-react@1.75.0
+  - recharts@3.11.0

@@ -46,7 +46,7 @@ export function SensorCards({ readings, loading }: Props) {
         return (
           <Card
             key={metric.key}
-            className="gap-3 overflow-hidden border-[#dfe8e0] bg-white py-4 shadow-sm"
+            className="gap-3 overflow-hidden border-border bg-card py-4 shadow-sm"
           >
             <div
               className="h-0.5"
@@ -70,7 +70,7 @@ export function SensorCards({ readings, loading }: Props) {
             </CardHeader>
 
             <CardContent className="space-y-2 px-4">
-              <CardTitle className="text-xs font-medium text-[#718078]">
+              <CardTitle className="text-xs font-medium text-muted-foreground">
                 {metric.label}
               </CardTitle>
 

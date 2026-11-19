@@ -75,7 +75,7 @@ export function SensorChart({
   const unit = filtered[0]?.unit || selectedMetric.unit
 
   return (
-    <Card className="border-[#dfe8e0] bg-white shadow-sm">
+    <Card className="border-border bg-card shadow-sm">
       <CardHeader className="gap-4">
         <div>
           <CardTitle>Sensor trends</CardTitle>
@@ -96,7 +96,7 @@ export function SensorChart({
               }
             }}
           >
-            <SelectTrigger className="w-44 bg-white">
+            <SelectTrigger className="w-44 bg-background">
               <SelectValue placeholder="Select sensor" />
             </SelectTrigger>
 
@@ -148,7 +148,7 @@ export function SensorChart({
                 }}
               >
                 <CartesianGrid
-                  stroke="#e7eee8"
+                  stroke="var(--border)"
                   strokeDasharray="3 3"
                   vertical={false}
                 />
@@ -160,6 +160,7 @@ export function SensorChart({
                   domain={["dataMin", "dataMax"]}
                   minTickGap={40}
                   fontSize={11}
+                  tick={{ fill: "var(--muted-foreground)" }}
                   tickFormatter={(timestamp) =>
                     new Date(timestamp).toLocaleDateString(
                       "en-IN",
@@ -175,6 +176,7 @@ export function SensorChart({
                 <YAxis
                   width={60}
                   fontSize={11}
+                  tick={{ fill: "var(--muted-foreground)" }}
                   domain={["auto", "auto"]}
                   tickFormatter={(value) =>
                     formatValue(Number(value))
